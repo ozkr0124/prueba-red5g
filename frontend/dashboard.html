@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+
+    <header class="header-dashboard">
+        <img src="./assets/images/logo-dark.png" style="cursor: pointer;" alt="" onclick="router_view('dashboard')">
+        <div class="logout" onclick="logout()">
+            <span class="material-icons-outlined icon24 m12">logout</span>
+            <span class="label-logout">Log Out</span>
+        </div>
+    </header>
+    <main>
+
+        <div class="title-dashboard">Welcome to the Dashboard</div>
+
+        <div class="title-modules">Modules</div>
+
+        <div class="container-menu">
+            <div class="card-container-menu" onclick="router_view('users')">
+                <div class="card-content">
+                    <span class="material-icons-outlined icon50">people</span>
+                </div>
+                <div class="card-title">Usuarios</div>
+            </div>
+            <div class="card-container-menu" onclick="router_view('payment-state')">
+                <div class="card-content">
+                    <span class="material-icons-outlined icon50">grid_on</span>
+                </div>
+                <div class="card-title">Estados de pagos</div>
+            </div>
+            <div class="card-container-menu" onclick="router_view('payment-import')">
+                <div class="card-content">
+                    <span class="material-icons-outlined icon50">repeat</span>
+                </div>
+                <div class="card-title">Importar pagos</div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>

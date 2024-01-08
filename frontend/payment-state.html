@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estado de pago</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+
+    <header class="header-dashboard">
+        <img src="./assets/images/logo-dark.png" style="cursor: pointer;" alt="" onclick="router_view('dashboard')">
+        <div class="logout" onclick="logout()">
+            <span class="material-icons-outlined icon24 m12">logout</span>
+            <span class="label-logout">Log Out</span>
+        </div>
+    </header>
+    <main>
+
+        <div class="container-title-view">
+            <div class="title-view">Estado de pago</div>
+        </div>
+
+        <div class="container-title-view" style="padding: 0px;">
+            <div class="form separatorHorizontal">
+                <input type="date" id="date_start" class="form_input" autocomplete="off" placeholder="">
+                <label for="date_start" class="form_label">Fecha inicio</label>
+            </div>
+            <div class="form separatorHorizontal">
+                <input type="date" id="date_end" class="form_input" autocomplete="off" placeholder="">
+                <label for="date_end" class="form_label">Fecha fin</label>
+            </div>
+            <div class="form separatorHorizontal">
+                <input type="text" id="document" class="form_input" autocomplete="off" placeholder="">
+                <label for="document" class="form_label">Documento</label>
+            </div>
+            <button type="button" class="button-small separatorHorizontal" id="btnSearch" onclick="get_payment_state()">Consultar</button>
+        </div>
+
+        <div class="container-table">
+        </div>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/script.js"></script>
+
+    <script>
+        $(async function () {
+            await get_payment_state();
+        });
+
+        async function get_payment_state(){
+            try {
+
+                let date_start = $('#date_start').val() ?? '';
+                let date_end = $('#date_end').val() ?? '';
+                let document = $('#document').val() ?? '';
+
+                let data = new URLSearchParams({
+                    "date_start": date_start,
+                    "date_end": date_end,
+                    "document": document,
+                }).toString();
+
+                let options = {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-token': window.sessionStorage.getItem('token'),
+                    },
+                }
+
+                let url = (base_url + 'payments-state' + '?' + data);
+
+                let fetchRes = await fetch(url , options).catch(error => console.error(error));
+                let resdata = await fetchRes.json();
+
+                if (resdata.type == 'error_token') {
+                    await logout();
+                    return false;
+                }
+
+                if (resdata.type == 'error') {
+                    $('.container-table').html(
+                        `<h1>${resdata.msg}</h1>`
+                    );
+                }
+
+                let html = `<table class="table">
+                    <thead>
+                        <tr>
+                            <th>Estado Pago</th>
+                            <th>Documento</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Monto</th>
+                            <th>Fecha pago</th>
+                            <th>Fech limite</th>
+                            <th>Pago ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+
+                $.each(resdata.msg, function (index, val) {
+                    html += `<tr>
+                        <td>${val.state_payment}</td>
+                        <td>${val.customer_document}</td>
+                        <td>${val.customer_name}</td>
+                        <td>${val.customer_email}</td>
+                        <td>${val.amount}</td>
+                        <td>${val.payment_date}</td>
+                        <td>${val.due_date}</td>
+                        <td>${val.payment_id}</td>
+                    </tr>`;
+                });
+
+                html += `</tbody>
+                </table>`;
+
+                $('.container-table').html(html);
+
+            } catch (error) {
+                console.log(resdata);
+            }
+        }
+    </script>
+</body>
+
+</html>

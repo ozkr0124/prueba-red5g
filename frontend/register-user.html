@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Usuario</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+
+    <header class="header-dashboard">
+        <img src="./assets/images/logo-dark.png" style="cursor: pointer;" alt="" onclick="router_view('dashboard')">
+        <div class="logout" onclick="logout()">
+            <span class="material-icons-outlined icon24 m12">logout</span>
+            <span class="label-logout">Log Out</span>
+        </div>
+    </header>
+    <main>
+
+        <div class="container-title-view">
+            <div class="title-view">Registrar Usuario</div>
+        </div>
+
+        <div class="container-form">
+            <div class="form">
+                <input type="text" id="full_name" class="form_input" autocomplete="off" placeholder="">
+                <label for="full_name" class="form_label">Nombre</label>
+            </div>
+            <div class="form separator16">
+                <input type="text" id="document_id" class="form_input" autocomplete="off" placeholder="">
+                <label for="document_id" class="form_label">Documento</label>
+            </div>
+            <div class="form separator16">
+                <input type="text" id="email" class="form_input" autocomplete="off" placeholder="">
+                <label for="email" class="form_label">E-mail</label>
+            </div>
+            <div class="form separator16">
+                <input type="text" id="user_name" class="form_input" autocomplete="off" placeholder="">
+                <label for="user_name" class="form_label">Username</label>
+            </div>
+            <div class="form separator16">
+                <input type="password" id="password" class="form_input" autocomplete="off" placeholder="">
+                <label for="password" class="form_label">Password</label>
+            </div>
+            <div class="form separator16">
+                <input type="password" id="repassword" class="form_input" autocomplete="off" placeholder="">
+                <label for="repassword" class="form_label">Confirmar password</label>
+            </div>
+            <div class="separator16">
+                <button type="button" class="button-small" id="btnRegsiter" onclick="register_user()">Registrar!</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>

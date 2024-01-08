@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+
+    <header class="header-dashboard">
+        <img src="./assets/images/logo-dark.png" style="cursor: pointer;" alt="" onclick="router_view('dashboard')">
+        <div class="logout" onclick="logout()">
+            <span class="material-icons-outlined icon24 m12">logout</span>
+            <span class="label-logout">Log Out</span>
+        </div>
+    </header>
+    <main>
+
+        <div class="container-title-view">
+            <div class="title-view">Usuarios</div>
+            <button type="button" class="button-large" id="btnCreateUser" onclick="router_view('register-user')">Crear Usuario</button>
+        </div>
+
+        <div class="container-table">
+        </div>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/script.js"></script>
+
+    <script>
+        $(async function () {
+            try {
+                let options = {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-token': window.sessionStorage.getItem('token'),
+                    },
+                }
+
+                let fetchRes = await fetch(base_url + 'users', options).catch(error => console.error(error));
+                let resdata = await fetchRes.json();
+                
+                if (resdata.type == 'error_token') {
+                    await logout();
+                    return false;
+                }
+
+                if (resdata.type == 'error') {
+                    $('.container-table').html(
+                        `<h1>${resdata.msg}</h1>`
+                    );
+                }
+
+                let html = `<table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Documento</th>
+                            <th>Correo</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+
+                $.each(resdata.msg, function (index, val) {
+                    html += `<tr>
+                        <td>${val.full_name}</td>
+                        <td>${val.document_id}</td>
+                        <td>${val.email}</td>
+                        <td>${val.user_name}</td>
+                        <td>${val.role}</td>
+                        <td>${val.state == '1' ? 'ACTIVO' : 'INACTIVO'}</td>
+                    </tr>`;
+                });
+
+                html += `</tbody>
+                </table>`;
+
+
+                $('.container-table').html(html);
+
+
+            } catch (error) {
+                console.log(resdata);
+            }
+        });
+    </script>
+</body>
+
+</html>

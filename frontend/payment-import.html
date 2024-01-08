@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Importar pago</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+
+    <header class="header-dashboard">
+        <img src="./assets/images/logo-dark.png" style="cursor: pointer;" alt="" onclick="router_view('dashboard')">
+        <div class="logout" onclick="logout()">
+            <span class="material-icons-outlined icon24 m12">logout</span>
+            <span class="label-logout">Log Out</span>
+        </div>
+    </header>
+    <main>
+
+        <div class="container-loader hidden">
+            <div class="loader">
+                <div class="bar"></div>
+                <div class="indicator"></div>
+            </div>
+            <div class="separator24">
+                <p class="title-loader">Reading File</p>
+                <p class="subtitle-loader">This may take a few minutes</p>
+                <p class="subtitle-loader">You will be redirected automatically</p>
+            </div>
+        </div>
+
+        <div id="container" class="">
+            <div class="container-title-view">
+                <div class="title-view">Importar pago</div>
+            </div>
+    
+            <div class="title-upload">Upload File</div>
+    
+            <div class="container-form-upload">
+                <div class="form_upload">
+                    <input type="file" id="userfile" class="form_input_upload" autocomplete="off" placeholder="">
+                    <label for="userfile" class="form_label_upload">Select a file (.xlsx .xlsb .xlsm .csv)</label>
+                    <div class="icon-input-upload"><span class="material-icons-outlined">file_upload</span>
+                    </div>
+                </div>
+                <div class="group-buttons separator28">
+                    <button type="button" class="button-small" id="btnPendings" onclick="upload_file_payment('pending')">Pendientes</button>
+                    <button type="button" class="button-small" id="btnConfirmation" onclick="upload_file_payment('confirmation')">Confirmación</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>

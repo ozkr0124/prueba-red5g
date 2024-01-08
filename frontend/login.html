@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <img src="./assets/images/logo.png" alt="">
+    </header>
+    <main>
+
+        <div class="title-login">Log In</div>
+
+        <div class="container-form">
+            <div class="form">
+                <input type="text" id="username" class="form_input" autocomplete="off" placeholder="">
+                <label for="username" class="form_label">Username</label>
+            </div>
+            <div class="form separator16">
+                <input type="password" id="password" class="form_input" autocomplete="off" placeholder="">
+                <label for="password" class="form_label">Password</label>
+                <div class="icon-input" onclick="showPassword()"><span id="iconVis" class="material-icons-outlined">visibility</span>
+                </div>
+            </div>
+            <div class="separator72">
+                <button type="button" class="button-small" id="btnGo" onclick="login()">Go!</button>
+            </div>
+            <div class="separator68">
+                <a href="#" class="link-text" id="linkForgot">Forgot my password</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/script.js"></script>
+
+    
+</body>
+
+</html>
